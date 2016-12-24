@@ -16,7 +16,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={NotesList}/>
-        <Route path="notes/:noteId" component={NoteEdit}/>
+        <Route path="dbs/:dbId/notes/:noteId" component={NoteEdit}/>
         <Route path="noteslist" component={NotesList}/>
         <Route path="*" component={NoMatch}/>
       </Route>

@@ -13,7 +13,7 @@ class Note extends Component {
   render() {
     return (
       <div className="list-group-item">
-        {this.state.expanded ? this.state.note.text : this.state.note.text.substr(0, 3) + "..."}
+        {this.state.expanded ? this.state.note.note.text : this.state.note.note.text.substr(0, 3) + "..."}
         <ButtonGroup>
           <Button onClick={this.toggleExpand.bind(this)}><Glyphicon glyph={this.state.expanded ? "collapse-up" : "collapse-down"} /></Button>
           <Button onClick={this.navNote.bind(this)}><Glyphicon glyph="pencil" /></Button>
@@ -27,7 +27,7 @@ class Note extends Component {
   }
 
   navNote() {
-    this.context.router.push("/notes/" + this.state.note.id);
+    this.context.router.push("/dbs/" + this.state.note.dbId + "/notes/" + this.state.note.note.id);
   }
 }
 

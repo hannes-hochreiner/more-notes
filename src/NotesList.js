@@ -22,7 +22,7 @@ class NotesList extends Component {
     return (
       <ListGroup className="NotesList">
         {this.state.notes.map((entry) => {
-          return <Note key={entry.id} note={entry}></Note>;
+          return <Note key={entry.dbId + entry.note.id} note={entry}></Note>;
         })}
       </ListGroup>
     );
