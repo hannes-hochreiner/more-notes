@@ -3,7 +3,7 @@ echo -e "repo: $TRAVIS_REPO_SLUG"
 echo -e "branch: $TRAVIS_BRANCH"
 echo -e "tag: $TRAVIS_TAG"
 
-if [ "$TRAVIS_REPO_SLUG" == "hannes-hochreiner/more-notes" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
+if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "$TRAVIS_TAG" ]; then
   echo -e "Publishing...\n"
 
   cp -r . $HOME/export
@@ -11,7 +11,7 @@ if [ "$TRAVIS_REPO_SLUG" == "hannes-hochreiner/more-notes" ] && [ "$TRAVIS_PULL_
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travis-ci"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/hannes-hochreiner/more-notes gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} gh-pages > /dev/null
   cd gh-pages
   git rm -rf .
   cp -rf $HOME/export/build/* .
