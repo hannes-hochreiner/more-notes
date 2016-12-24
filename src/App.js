@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 //import logo from './logo.svg';
 import './App.css';
 
@@ -6,9 +7,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>more notes</h2>
-        </div>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="/">&gt; notes</a>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} href="/dbs">dbs</NavItem>
+            <NavItem eventKey={2} href="/noteslist">notes</NavItem>
+          </Nav>
+        </Navbar>
         {this.props.children}
       </div>
     );

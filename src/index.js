@@ -8,7 +8,9 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import AppContext from './AppContext';
 import App from './App';
 import NotesList from './NotesList';
+import DbsList from './DbsList';
 import NoteEdit from './NoteEdit';
+import DbEdit from './DbEdit';
 import './index.css';
 
 ReactDOM.render(
@@ -18,6 +20,8 @@ ReactDOM.render(
         <IndexRoute component={NotesList}/>
         <Route path="dbs/:dbId/notes/:noteId" component={NoteEdit}/>
         <Route path="noteslist" component={NotesList}/>
+        <Route path="dbs" component={DbsList}/>
+        <Route path="dbs/:dbId" component={DbEdit}/>
         <Route path="*" component={NoMatch}/>
       </Route>
     </Router>
