@@ -1,13 +1,13 @@
 {
   "name": "more-notes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a note taking web-application",
   "main": "src/index.js",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.6.1"
   },
-  "homepage": "https://hannes-hochreiner.github.io/more-notes",
+  "homepage": "https://github.com/hannes-hochreiner/more-notes#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^15.3.2",
@@ -29,6 +29,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hannes-hochreiner/more-notes/issues"
-  },
-  "homepage": "https://github.com/hannes-hochreiner/more-notes#readme"
+  }
 }
