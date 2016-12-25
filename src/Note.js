@@ -18,7 +18,7 @@ class Note extends Component {
           <Button onClick={this.toggleExpand.bind(this)}><Glyphicon glyph={this.state.expanded ? "collapse-up" : "collapse-down"} /></Button>
           <Button onClick={this.navNote.bind(this)}><Glyphicon glyph="pencil" /></Button>
         </ButtonGroup>
-        <Badge>{this.state.note.db.name}</Badge>
+        <Badge>{this.state.note.db.title}</Badge>
       </div>
     );
   }

@@ -50,6 +50,12 @@ export class RepoPouchDb {
     return d.sync(db.syncAddr);
   }
 
+  deleteDb(db) {
+    let d = new this._pdb(db._id);
+
+    return d.destroy();
+  }
+
   getAllNotesFromDb(db) {
     let d = new this._pdb(db._id);
 

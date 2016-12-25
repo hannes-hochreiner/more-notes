@@ -18,7 +18,8 @@ class Db extends Component {
         <p>{this.state.db.syncAddr}</p>
         <ButtonGroup bsStyle="default">
           <Button onClick={this.navNote.bind(this)}><Glyphicon glyph="pencil" /></Button>
-          <Button onClick={this.sync.bind(this)}><Glyphicon glyph="cloud" /></Button>
+          <Button onClick={this.sync.bind(this)}><Glyphicon glyph="refresh" /></Button>
+          <Button onClick={this.delete.bind(this)}><Glyphicon glyph="trash" /></Button>
         </ButtonGroup>
       </div>
     );
@@ -30,6 +31,10 @@ class Db extends Component {
 
   sync() {
     this.context.repo.syncDb(this.state.db);
+  }
+
+  delete() {
+    this.context.repo.deleteDb(this.state.db);
   }
 }
 
