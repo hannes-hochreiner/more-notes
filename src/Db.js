@@ -29,7 +29,7 @@ class Db extends Component {
   }
 
   sync() {
-    this.context.repo.dbSync(this.state.db);
+    this.context.repo.syncDb(this.state.db);
   }
 }
 
