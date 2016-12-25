@@ -45,7 +45,9 @@ export class RepoPouchDb {
   }
 
   syncDb(db) {
-    return this._pdb(db._id, db.syncAddr);
+    let d = new this._pdb(db._id);
+
+    return d.sync(db.syncAddr);
   }
 
   getAllNotesFromDb(db) {
