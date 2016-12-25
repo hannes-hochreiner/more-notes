@@ -22,7 +22,7 @@ class DbsList extends Component {
     return (
       <ListGroup className="DbsList">
         {this.state.dbs.map((entry) => {
-          return <Db key={entry.id} db={entry}></Db>;
+          return <Db key={entry._id} db={entry}></Db>;
         })}
       </ListGroup>
     );

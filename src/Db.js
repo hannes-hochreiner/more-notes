@@ -24,7 +24,7 @@ class Db extends Component {
   }
 
   navNote() {
-    this.context.router.push("/dbs/" + this.state.db.id);
+    this.context.router.push("/dbs/" + this.state.db._id);
   }
 }
 
