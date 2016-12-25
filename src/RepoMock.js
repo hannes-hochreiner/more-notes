@@ -1,15 +1,18 @@
 export class RepoMock {
   constructor() {
     this._dbs = [
-      { id: "1", _rev: "1", name: "private", syncAddr: "" },
-      { id: "2", _rev: "1", name: "public", syncAddr: "https://testdomain.test" }
+      { _id: "db1", _rev: "1", name: "private", syncAddr: "" },
+      { _id: "db2", _rev: "1", name: "public", syncAddr: "https://testdomain.test" }
     ];
 
-    this._notes = [
-      { note: { id: "1", _rev: "1", text: "note1" }, dbId: "1" },
-      { note: { id: "1", _rev: "1", text: "note2" }, dbId: "2" },
-      { note: { id: "2", _rev: "1", text: "note3" }, dbId: "2" },
-      { note: { id: "2", _rev: "1", text: "note4" }, dbId: "1" }
+    this._db1 = [
+      { _id: "1", _rev: "1", text: "note1" },
+      { _id: "2", _rev: "1", text: "note4" }
+    ];
+
+    this._db2 = [
+      { _id: "1", _rev: "1", text: "note2" },
+      { _id: "2", _rev: "1", text: "note3" }
     ];
   }
 
@@ -22,7 +25,7 @@ export class RepoMock {
   getDbById(dbId) {
     return new Promise((resolve, reject) => {
       resolve(JSON.parse(JSON.stringify(this._dbs.find((db) => {
-        return db.id === dbId;
+        return db._id === dbId;
       }))));
     });
   }
@@ -38,27 +41,27 @@ export class RepoMock {
     });
   }
 
-  getAllNotes() {
+  getAllNotesFromDb(db) {
     return new Promise((resolve, reject) => {
-      resolve(JSON.parse(JSON.stringify(this._notes)));
+      resolve(JSON.parse(JSON.stringify(this["_" + db._id])));
     });
   }
 
-  getNoteByDbIdId(dbId, id) {
+  getNoteFromDbById(db, id) {
     return new Promise((resolve, reject) => {
-      resolve(JSON.parse(JSON.stringify(this._notes.find((note) => {
-        return note.note.id === id && note.dbId === dbId;
+      resolve(JSON.parse(JSON.stringify(this["_" + db._id].find((note) => {
+        return note._id === id;
       }))));
     });
   }
 
-  updateNote(note) {
+  updateNoteInDb(db, note) {
     return new Promise((resolve, reject) => {
-      let idx = this._notes.findIndex((nt) => {
-        return note.note.id === nt.note.id && note.dbId === nt.dbId;
+      let idx = this["_" + db._id].findIndex((nt) => {
+        return note._id === nt._id;
       });
 
-      this._notes.splice(idx, 1, note);
+      this["_" + db._id].splice(idx, 1, note);
       resolve();
     });
   }

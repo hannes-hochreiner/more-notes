@@ -8,12 +8,18 @@ class NoteEdit extends Component {
       expanded: false,
       noteId: this.props.params.noteId,
       dbId: this.props.params.dbId,
+      db: null,
       note: null
     };
   }
 
   componentDidMount() {
-    this.context.repo.getNoteByDbIdId(this.state.dbId, this.state.noteId).then((note) => {
+    this.context.repo.getDbById(this.state.dbId).then((db) => {
+      this.setState({
+        db: db
+      });
+      return this.context.repo.getNoteFromDbById(db, this.state.noteId);
+    }).then((note) => {
       this.setState({
         note: note
       });
@@ -24,7 +30,7 @@ class NoteEdit extends Component {
     let textarea = null;
 
     if (this.state.note) {
-      textarea = <textarea value={this.state.note.note.text} onChange={this.handleChange.bind(this)}/>;
+      textarea = <textarea value={this.state.note.text} onChange={this.handleChange.bind(this)}/>;
     } else {
       textarea = <textarea value="" onChange={this.handleChange.bind(this)}/>;
     }
@@ -43,12 +49,12 @@ class NoteEdit extends Component {
   handleChange(event) {
     let note = this.state.note;
 
-    note.note.text = event.target.value;
+    note.text = event.target.value;
     this.setState({note: note});
   }
 
   save() {
-    this.context.repo.updateNote(this.state.note).then(() => {
+    this.context.repo.updateNoteInDb(this.state.db, this.state.note).then(() => {
       this.context.router.goBack();
     });
   }

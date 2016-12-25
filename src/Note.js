@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { ButtonGroup, Button, Glyphicon, Badge } from 'react-bootstrap';
 
 class Note extends Component {
   constructor(props) {
@@ -18,6 +18,7 @@ class Note extends Component {
           <Button onClick={this.toggleExpand.bind(this)}><Glyphicon glyph={this.state.expanded ? "collapse-up" : "collapse-down"} /></Button>
           <Button onClick={this.navNote.bind(this)}><Glyphicon glyph="pencil" /></Button>
         </ButtonGroup>
+        <Badge>{this.state.note.db.name}</Badge>
       </div>
     );
   }
@@ -27,7 +28,7 @@ class Note extends Component {
   }
 
   navNote() {
-    this.context.router.push("/dbs/" + this.state.note.dbId + "/notes/" + this.state.note.note.id);
+    this.context.router.push("/dbs/" + this.state.note.db._id + "/notes/" + this.state.note.note._id);
   }
 }
 

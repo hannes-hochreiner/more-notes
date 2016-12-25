@@ -11,9 +11,22 @@ class NotesList extends Component {
   }
 
   componentDidMount() {
-    this.context.repo.getAllNotes().then((notes) => {
+    this.context.repo.getAllDbs().then((dbs) => {
+      return Promise.all(dbs.map((db) => {
+        return this.context.repo.getAllNotesFromDb(db).then((notesFromDb) => {
+          return notesFromDb.map((note) => {
+            return {
+              db: db,
+              note: note
+            };
+          });
+        });
+      }));
+    }).then((noteArrays) => {
       this.setState({
-        notes: notes
+        notes: noteArrays.reduce((curr, next) => {
+          return curr.concat(next);
+        }, [])
       });
     });
   }
@@ -22,7 +35,7 @@ class NotesList extends Component {
     return (
       <ListGroup className="NotesList">
         {this.state.notes.map((entry) => {
-          return <Note key={entry.dbId + entry.note.id} note={entry}></Note>;
+          return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
         })}
       </ListGroup>
     );
