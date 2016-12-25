@@ -53,7 +53,9 @@ export class RepoPouchDb {
   deleteDb(db) {
     let d = new this._pdb(db._id);
 
-    return d.destroy();
+    return d.destroy().then(() => {
+      return this._dbs.remove(db);
+    });
   }
 
   getAllNotesFromDb(db) {
