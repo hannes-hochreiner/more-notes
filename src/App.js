@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, IndexLink } from 'react-router';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 //import logo from './logo.svg';
 import './App.css';
@@ -10,12 +11,12 @@ class App extends Component {
         <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">&gt; notes</a>
+              <IndexLink to="/">&gt; notes</IndexLink>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
-            <NavItem eventKey={1} href="/dbs">dbs</NavItem>
-            <NavItem eventKey={2} href="/noteslist">notes</NavItem>
+            <NavItem eventKey={1}><Link to="/dbs">dbs</Link></NavItem>
+            <NavItem eventKey={2}><Link to="/noteslist">notes</Link></NavItem>
           </Nav>
         </Navbar>
         {this.props.children}

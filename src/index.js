@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory, NoMatch } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, NoMatch } from 'react-router';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
@@ -15,7 +15,7 @@ import './index.css';
 
 ReactDOM.render(
   <AppContext>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={NotesList}/>
         <Route path="dbs/:dbId/notes/:noteId" component={NoteEdit}/>
