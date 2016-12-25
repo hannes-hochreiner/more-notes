@@ -63,6 +63,10 @@ export class RepoPouchDb {
   updateNoteInDb(db, note) {
     let d = new this._pdb(db._id);
 
-    return d.put(note);
+    if (note._id) {
+      return d.put(note);
+    }
+
+    return d.post(note);
   }
 }
