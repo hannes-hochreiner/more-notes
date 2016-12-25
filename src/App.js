@@ -17,8 +17,8 @@ class App extends Component {
             <NavItem eventKey={1} href="#/dbs">dbs</NavItem>
             <NavItem eventKey={2} href="#/dbnew">create db</NavItem>
           </Nav>
-          <SplitButton title="notes" onClick={this.goToNotes.bind(this)}>
-            <MenuItem onClick={this.addNote.bind(this)}>add note</MenuItem>
+          <SplitButton bsStyle="default" title="notes" onClick={this.goToNotes.bind(this)}>
+            <MenuItem bsStyle="default" onClick={this.addNote.bind(this)}>add note</MenuItem>
           </SplitButton>
         </Navbar>
         {this.props.children}
