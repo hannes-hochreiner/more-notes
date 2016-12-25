@@ -21,7 +21,7 @@ export class RepoPouchDb {
 
   getAllDbs() {
     return this._dbs.allDocs({include_docs: true}).then((res) => {
-      return res.map((elem) => {
+      return res.rows.map((elem) => {
         return elem.doc;
       });
     });
@@ -39,7 +39,7 @@ export class RepoPouchDb {
     let d = new this._pdb(db._id);
 
     return d.allDocs({include_docs: true}).then((res) => {
-      return res.map((elem) => {
+      return res.rows.map((elem) => {
         return elem.doc;
       });
     });
