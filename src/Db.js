@@ -13,7 +13,7 @@ class Db extends Component {
   render() {
     return (
       <div className="list-group-item">
-        <h1>{this.state.db.name}</h1>
+        <h1>{this.state.db.title}</h1>
         <h2>Sync Address</h2>
         <p>{this.state.db.syncAddr}</p>
         <ButtonGroup>

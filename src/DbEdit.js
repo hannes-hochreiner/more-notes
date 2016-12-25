@@ -21,27 +21,35 @@ class DbEdit extends Component {
   render() {
     return (
       <form>
-        {this.state.dbId}
         <ButtonGroup>
           <Button onClick={this.save.bind(this)}><Glyphicon glyph="ok" /></Button>
         </ButtonGroup>
-        <ControlLabel>Sync Address</ControlLabel>
         <FormGroup>
-        <FormControl
-          type="text"
-          placeholder="Enter sync address"
-          onChange={this.handleChange.bind(this)}
-          value={this.state.db ? this.state.db.syncAddr : ""}
-        />
+          <ControlLabel>Name</ControlLabel>
+          <FormControl
+            type="text"
+            placeholder="Enter db name"
+            onChange={this.handleChange.bind(this, "title")}
+            value={this.state.db ? this.state.db.title : ""}
+          />
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Sync Address</ControlLabel>
+          <FormControl
+            type="text"
+            placeholder="Enter sync address"
+            onChange={this.handleChange.bind(this, "syncAddr")}
+            value={this.state.db ? this.state.db.syncAddr : ""}
+          />
         </FormGroup>
       </form>
     );
   }
 
-  handleChange(event) {
+  handleChange(field, event) {
     let db = this.state.db;
 
-    db.syncAddr = event.target.value;
+    db[field] = event.target.value;
     this.setState({db: db});
   }
 
