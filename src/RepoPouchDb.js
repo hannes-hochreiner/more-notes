@@ -36,7 +36,12 @@ export class RepoPouchDb {
       return this._dbs.put(db);
     }
 
-    return this._dbs.post(db);
+    return this._dbs.allDocs().then((res) => {
+      db._id = "more-notes-db-" + res.rows.toString();
+      db.type = "db";
+
+      return this._dbs.put(db);
+    });
   }
 
   getAllNotesFromDb(db) {
