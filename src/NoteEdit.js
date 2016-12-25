@@ -18,6 +18,11 @@ class NoteEdit extends Component {
       this.setState({
         db: db
       });
+
+      if (!this.state.noteId) {
+        return {};
+      }
+
       return this.context.repo.getNoteFromDbById(db, this.state.noteId);
     }).then((note) => {
       this.setState({
@@ -30,7 +35,7 @@ class NoteEdit extends Component {
     let textarea = null;
 
     if (this.state.note) {
-      textarea = <textarea value={this.state.note.text} onChange={this.handleChange.bind(this)}/>;
+      textarea = <textarea value={this.state.note.text || ""} onChange={this.handleChange.bind(this)}/>;
     } else {
       textarea = <textarea value="" onChange={this.handleChange.bind(this)}/>;
     }
