@@ -37,7 +37,7 @@ export class RepoPouchDb {
     }
 
     return this._dbs.allDocs().then((res) => {
-      db._id = "more-notes-db-" + res.rows.toString();
+      db._id = "more-notes-db-" + res.rows.length.toString();
       db.type = "db";
 
       return this._dbs.put(db);
@@ -66,6 +66,8 @@ export class RepoPouchDb {
     if (note._id) {
       return d.put(note);
     }
+
+    note.type = "note";
 
     return d.post(note);
   }
