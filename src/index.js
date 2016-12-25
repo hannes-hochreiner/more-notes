@@ -22,6 +22,7 @@ ReactDOM.render(
         <Route path="noteslist" component={NotesList}/>
         <Route path="dbs" component={DbsList}/>
         <Route path="dbs/:dbId" component={DbEdit}/>
+        <Route path="dbnew" component={DbEdit}/>
         <Route path="*" component={NoMatch}/>
       </Route>
     </Router>

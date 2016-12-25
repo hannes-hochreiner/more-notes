@@ -32,7 +32,11 @@ export class RepoPouchDb {
   }
 
   updateDb(db) {
-    return this._dbs.put(db);
+    if (typeof db._id !== "undefined") {
+      return this._dbs.put(db);
+    }
+
+    return this._dbs.post(db);
   }
 
   getAllNotesFromDb(db) {

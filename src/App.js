@@ -15,7 +15,8 @@ class App extends Component {
           </Navbar.Header>
           <Nav>
             <NavItem eventKey={1} href="#/dbs">dbs</NavItem>
-            <NavItem eventKey={2} href="#/noteslist">notes</NavItem>
+            <NavItem eventKey={2} href="#/dbnew">create db</NavItem>
+            <NavItem eventKey={3} href="#/noteslist">notes</NavItem>
           </Nav>
         </Navbar>
         {this.props.children}

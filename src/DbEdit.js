@@ -11,6 +11,12 @@ class DbEdit extends Component {
   }
 
   componentDidMount() {
+    if (!this.state.dbId) {
+      this.setState({
+        db: {}
+      });
+    }
+
     this.context.repo.getDbById(this.state.dbId).then((db) => {
       this.setState({
         db: db
