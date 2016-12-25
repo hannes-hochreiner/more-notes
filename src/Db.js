@@ -34,7 +34,7 @@ class Db extends Component {
 }
 
 Db.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
   repo: React.PropTypes.object
 };
 
