@@ -16,6 +16,12 @@ export class RepoMock {
     ];
   }
 
+  init() {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  }
+
   getAllDbs() {
     return new Promise((resolve, reject) => {
       resolve(JSON.parse(JSON.stringify(this._dbs)));
