@@ -4,11 +4,9 @@ export class RepoPouchDb {
   }
 
   init() {
-    return this._pdb("more-notes-dbs").then((dbs) => {
-      this._dbs = dbs;
+    this._dbs = new this._pdb("more-notes-dbs");
 
-      return this._dbs.getAllDocs({include_docs: true});
-    }).then((res) => {
+    return this._dbs.getAllDocs({include_docs: true}).then((res) => {
       if (res.rows.length > 0) {
         return;
       }
@@ -38,9 +36,9 @@ export class RepoPouchDb {
   }
 
   getAllNotesFromDb(db) {
-    return this._pdb(db._id).then((res) => {
-      return res.getAllDocs({include_docs: true});
-    }).then((res) => {
+    let d = new this._pdb(db._id);
+
+    return d.getAllDocs({include_docs: true}).then((res) => {
       return res.map((elem) => {
         return elem.doc;
       });
@@ -48,14 +46,14 @@ export class RepoPouchDb {
   }
 
   getNoteFromDbById(db, id) {
-    return this._pdb(db._id).then((res) => {
-      return res.get(id);
-    });
+    let d = new this._pdb(db._id);
+
+    return d.get(id);
   }
 
   updateNoteInDb(db, note) {
-    return this._pdb(db._id).then((res) => {
-      return res.put(note);
-    });
+    let d = new this._pdb(db._id);
+
+    return d.put(note);
   }
 }
