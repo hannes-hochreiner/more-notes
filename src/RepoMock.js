@@ -1,8 +1,8 @@
 export class RepoMock {
   constructor() {
     this._dbs = [
-      { _id: "db1", _rev: "1", name: "private", syncAddr: "" },
-      { _id: "db2", _rev: "1", name: "public", syncAddr: "https://testdomain.test" }
+      { _id: "db1", _rev: "1", title: "private", syncAddr: "" },
+      { _id: "db2", _rev: "1", title: "public", syncAddr: "https://testdomain.test" }
     ];
 
     this._db1 = [

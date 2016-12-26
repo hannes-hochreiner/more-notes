@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 class NoteEdit extends Component {
   constructor(props) {
@@ -32,21 +33,20 @@ class NoteEdit extends Component {
   }
 
   render() {
-    let textarea = null;
-
-    if (this.state.note) {
-      textarea = <textarea value={this.state.note.text || ""} onChange={this.handleChange.bind(this)}/>;
-    } else {
-      textarea = <textarea value="" onChange={this.handleChange.bind(this)}/>;
-    }
-
     return (
       <div>
-        {this.state.noteId}
-        <ButtonGroup>
-          <Button onClick={this.save.bind(this)}><Glyphicon glyph="ok" /></Button>
-        </ButtonGroup>
-        {textarea}
+        <TextField
+          multiLine={true}
+          id="textfield"
+          value={this.state.note ? this.state.note.text : ""}
+          onChange={this.handleChange.bind(this)}
+          fullWidth={true}
+        />
+      <FlatButton
+        label="save"
+        primary={true}
+        onTouchTap={this.save.bind(this)}
+      />
       </div>
     );
   }

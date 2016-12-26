@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import {List} from 'material-ui/List';
 import Note from "./Note";
 
 class NotesList extends Component {
@@ -33,11 +33,11 @@ class NotesList extends Component {
 
   render() {
     return (
-      <ListGroup className="NotesList">
+      <List>
         {this.state.notes.map((entry) => {
           return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
         })}
-      </ListGroup>
+      </List>
     );
   }
 }

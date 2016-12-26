@@ -2,9 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory, NoMatch } from 'react-router';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-
 import AppContext from './AppContext';
 import App from './App';
 import NotesList from './NotesList';
@@ -12,6 +9,10 @@ import DbsList from './DbsList';
 import NoteEdit from './NoteEdit';
 import DbEdit from './DbEdit';
 import './index.css';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 ReactDOM.render(
   <AppContext>
