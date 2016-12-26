@@ -4,6 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Snackbar from 'material-ui/Snackbar';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import './App.css';
 
 class App extends Component {
@@ -28,6 +30,12 @@ class App extends Component {
   }
 
   render() {
+    let fabStyle = {
+      position: "absolute",
+      bottom: 0,
+      right: 0
+    };
+
     return (
       <MuiThemeProvider>
         <div className="App">
@@ -37,6 +45,9 @@ class App extends Component {
             <MenuItem onTouchTap={this.goToNotes.bind(this)}>Notes</MenuItem>
           </Drawer>
           {this.props.children}
+          <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
+            <ContentAdd />
+          </FloatingActionButton>
           <Snackbar
             open={this.state.showMessage}
             message={this.state.message}
