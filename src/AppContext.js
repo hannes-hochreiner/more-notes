@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { default as PouchDb } from "pouchdb";
+import { default as PubSub } from "pubsub-js";
 import { RepoPouchDb } from "./RepoPouchDb";
 // import { RepoMock } from "./RepoMock";
 
@@ -24,7 +25,8 @@ class AppContext extends Component {
 
   getChildContext() {
     return {
-      repo: this.state.repo
+      repo: this.state.repo,
+      pubsub: PubSub
     };
   }
 
@@ -38,7 +40,8 @@ class AppContext extends Component {
 }
 
 AppContext.childContextTypes = {
-  repo: React.PropTypes.object
+  repo: React.PropTypes.object,
+  pubsub: React.PropTypes.object
 };
 
 export default AppContext;

@@ -3,14 +3,26 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Snackbar from 'material-ui/Snackbar';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: false
+      showMenu: false,
+      showMessage: false,
+      message: null
     };
+
+    this.context.pubsub.subscribe("info", this.showMessage.bind(this));
+  }
+
+  showMessage(topic, data) {
+    this.setState({
+      message: topic,
+      showMessage: true
+    });
   }
 
   render() {
@@ -23,6 +35,11 @@ class App extends Component {
             <MenuItem onTouchTap={this.goToNotes.bind(this)}>Notes</MenuItem>
           </Drawer>
           {this.props.children}
+          <Snackbar
+            open={this.state.showMessage}
+            message={this.state.message}
+            autoHideDuration={4000}
+          />
         </div>
       </MuiThemeProvider>
     );
@@ -55,6 +72,7 @@ class App extends Component {
 
 App.contextTypes = {
   router: React.PropTypes.object,
+  pubsub: React.PropTypes.object,
   repo: React.PropTypes.object
 };
 

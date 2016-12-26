@@ -44,16 +44,25 @@ class Db extends Component {
   }
 
   syncDb() {
-    this.context.repo.syncDb(this.state.db);
+    this.context.repo.syncDb(this.state.db).then(() => {
+      this.context.pubsub.publish("info.db.sync." + this.state.db._id, this.state.db);
+    }).catch((err) => {
+      this.context.pubsub.publish("error.db.sync." + this.state.db._id, err);
+    });
   }
 
   deleteDb() {
-    this.context.repo.deleteDb(this.state.db);
+    this.context.repo.deleteDb(this.state.db).then(() => {
+      this.context.pubsub.publish("info.db.delete." + this.state.db._id, this.state.db);
+    }).catch((err) => {
+      this.context.pubsub.publish("error.db.delete." + this.state.db._id, err);
+    });
   }
 }
 
 Db.contextTypes = {
   router: React.PropTypes.object,
+  pubsub: React.PropTypes.object,
   repo: React.PropTypes.object
 };
 
