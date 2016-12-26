@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import {List} from 'material-ui/List';
 import Db from "./Db";
 
 class DbsList extends Component {
@@ -20,11 +20,11 @@ class DbsList extends Component {
 
   render() {
     return (
-      <ListGroup className="DbsList">
+      <List>
         {this.state.dbs.map((entry) => {
           return <Db key={entry._id} db={entry}></Db>;
         })}
-      </ListGroup>
+      </List>
     );
   }
 }

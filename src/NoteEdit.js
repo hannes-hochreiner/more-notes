@@ -6,7 +6,6 @@ class NoteEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
       noteId: this.props.params.noteId,
       dbId: this.props.params.dbId,
       db: null,
@@ -42,11 +41,11 @@ class NoteEdit extends Component {
           onChange={this.handleChange.bind(this)}
           fullWidth={true}
         />
-      <FlatButton
-        label="save"
-        primary={true}
-        onTouchTap={this.save.bind(this)}
-      />
+        <FlatButton
+          label="save"
+          primary={true}
+          onTouchTap={this.save.bind(this)}
+        />
       </div>
     );
   }

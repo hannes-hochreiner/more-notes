@@ -39,7 +39,7 @@ export class RepoMock {
   updateDb(db) {
     return new Promise((resolve, reject) => {
       let idx = this._dbs.findIndex((elem) => {
-        return elem.id === db.id;
+        return elem._id === db._id;
       });
 
       this._dbs.splice(idx, 1, db);

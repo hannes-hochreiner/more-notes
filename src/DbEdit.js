@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 class DbEdit extends Component {
   constructor(props) {
@@ -28,29 +29,25 @@ class DbEdit extends Component {
 
   render() {
     return (
-      <form>
-        <ButtonGroup>
-          <Button onClick={this.save.bind(this)}><Glyphicon glyph="ok" /></Button>
-        </ButtonGroup>
-        <FormGroup>
-          <ControlLabel>Name</ControlLabel>
-          <FormControl
-            type="text"
-            placeholder="Enter db name"
-            onChange={this.handleChange.bind(this, "title")}
-            value={this.state.db ? this.state.db.title : ""}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Sync Address</ControlLabel>
-          <FormControl
-            type="text"
-            placeholder="Enter sync address"
-            onChange={this.handleChange.bind(this, "syncAddr")}
-            value={this.state.db ? this.state.db.syncAddr : ""}
-          />
-        </FormGroup>
-      </form>
+      <div>
+        <TextField
+          id="titleField"
+          value={this.state.db ? this.state.db.title : ""}
+          onChange={this.handleChange.bind(this, "title")}
+          fullWidth={true}
+        />
+        <TextField
+          id="syncAddrField"
+          value={this.state.db ? this.state.db.syncAddr : ""}
+          onChange={this.handleChange.bind(this, "syncAddr")}
+          fullWidth={true}
+        />
+        <FlatButton
+          label="save"
+          primary={true}
+          onTouchTap={this.save.bind(this)}
+        />
+      </div>
     );
   }
 

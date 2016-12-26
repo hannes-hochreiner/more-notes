@@ -1,39 +1,53 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import {ListItem} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import {grey400} from 'material-ui/styles/colors';
 
 class Db extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
       db: this.props.db
     };
   }
 
   render() {
+    let iconButtonElement = (
+      <IconButton>
+        <MoreVertIcon color={grey400}/>
+      </IconButton>
+    );
+
+    let rightIconMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem onTouchTap={this.editDb.bind(this)}>Edit</MenuItem>
+        <MenuItem onTouchTap={this.syncDb.bind(this)}>Sync</MenuItem>
+        <MenuItem onTouchTap={this.deleteDb.bind(this)}>Delete</MenuItem>
+      </IconMenu>
+    );
+
     return (
-      <div className="list-group-item">
-        <h1>{this.state.db.title}</h1>
-        <h2>Sync Address</h2>
-        <p>{this.state.db.syncAddr}</p>
-        <ButtonGroup bsStyle="default">
-          <Button onClick={this.navNote.bind(this)}><Glyphicon glyph="pencil" /></Button>
-          <Button onClick={this.sync.bind(this)}><Glyphicon glyph="refresh" /></Button>
-          <Button onClick={this.delete.bind(this)}><Glyphicon glyph="trash" /></Button>
-        </ButtonGroup>
-      </div>
+      <ListItem
+        primaryText={this.state.db.title}
+        secondaryText={this.state.db.syncAddr}
+        secondaryTextLines={1}
+        rightIconButton={rightIconMenu}
+      />
     );
   }
 
-  navNote() {
+  editDb() {
     this.context.router.push("/dbs/" + this.state.db._id);
   }
 
-  sync() {
+  syncDb() {
     this.context.repo.syncDb(this.state.db);
   }
 
-  delete() {
+  deleteDb() {
     this.context.repo.deleteDb(this.state.db);
   }
 }
