@@ -14,7 +14,9 @@ class App extends Component {
       showMessage: false,
       message: null
     };
+  }
 
+  componentDidMount() {
     this.context.pubsub.subscribe("info", this.showMessage.bind(this));
   }
 
