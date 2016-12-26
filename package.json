@@ -1,6 +1,6 @@
 {
   "name": "more-notes",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "a note taking web-application",
   "main": "src/index.js",
   "private": true,
