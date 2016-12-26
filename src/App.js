@@ -32,8 +32,8 @@ class App extends Component {
   render() {
     let fabStyle = {
       position: "absolute",
-      bottom: 0,
-      right: 0
+      bottom: 20,
+      right: 20
     };
 
     return (
