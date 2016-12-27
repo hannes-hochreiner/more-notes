@@ -20,7 +20,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={NotesList}/>
         <Route path="dbs/:dbId/notes/:noteId" component={NoteEdit}/>
-        <Route path="dbs/:dbId/notenew" component={NoteEdit}/>
+        <Route path="notenew" component={NoteEdit}/>
         <Route path="noteslist" component={NotesList}/>
         <Route path="dbs" component={DbsList}/>
         <Route path="dbs/:dbId" component={DbEdit}/>

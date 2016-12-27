@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 class NoteEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       noteId: this.props.params.noteId,
-      dbId: this.props.params.dbId,
-      db: null,
-      note: null
+      dbId: this.props.params.dbId
     };
   }
 
   componentDidMount() {
-    this.context.repo.getDbById(this.state.dbId).then((db) => {
+    this.context.repo.getAllDbs().then((dbs) => {
+      let db = dbs.find((d) => {
+        return d._id = this.state.dbId;
+      });
+
+      if (!db) {
+        db = dbs[0];
+      }
+
       this.setState({
-        db: db
+        dbs: dbs,
+        db: db,
+        newDb: JSON.parse(JSON.stringify(db))
       });
 
       if (!this.state.noteId) {
@@ -26,7 +36,8 @@ class NoteEdit extends Component {
       return this.context.repo.getNoteFromDbById(db, this.state.noteId);
     }).then((note) => {
       this.setState({
-        note: note
+        note: note,
+        newNote: JSON.parse(JSON.stringify(note))
       });
     });
   }
@@ -34,6 +45,17 @@ class NoteEdit extends Component {
   render() {
     return (
       <div>
+        <SelectField
+          value={this.state.newDb}
+          floatingLabelText="Database"
+          onChange={this.onDbChange}
+        >
+          {this.state.dbs.map((db, idx) => {
+            return (
+              <MenuItem key={idx} value={db} primaryText={db.title} />
+            );
+          })}
+        </SelectField>
         <TextField
           multiLine={true}
           id="textfield"
@@ -50,15 +72,34 @@ class NoteEdit extends Component {
     );
   }
 
+  onDbChange(event, index, value) {
+    this.setState({
+      newDb: value
+    });
+  }
+
   handleChange(event) {
-    let note = this.state.note;
+    let note = this.state.newNote;
 
     note.text = event.target.value;
-    this.setState({note: note});
+    this.setState({newNote: note});
   }
 
   save() {
-    this.context.repo.updateNoteInDb(this.state.db, this.state.note).then(() => {
+    let newNote = this.state.newNote;
+
+    if (this.state.db && this.state.db._id !== this.state.newDb._id) {
+      delete newNote._id;
+      delete newNote._rev;
+    }
+
+    this.context.repo.updateNoteInDb(this.state.newDb, newNote).then(() => {
+      if (this.state.db && this.state.db._id !== this.state.newDb._id) {
+        return this.context.repo.deleteNoteFromDb(this.state.db, this.state.note);
+      }
+
+      return;
+    }).then(() => {
       this.context.router.goBack();
     });
   }

@@ -42,7 +42,7 @@ class NotesList extends Component {
   }
 
   addNote() {
-    this.context.router.push("dbs/more-notes-db-0/notenew");
+    this.context.router.push("notenew");
   }
 
   render() {
