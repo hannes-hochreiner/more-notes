@@ -9,12 +9,7 @@ class NoteEdit extends Component {
     super(props);
     this.state = {
       noteId: this.props.params.noteId,
-      note: null,
-      newNote: null.
-      dbId: this.props.params.dbId,
-      db: null,
-      newDb: null,
-      dbs: null
+      dbId: this.props.params.dbId
     };
   }
 
@@ -53,13 +48,13 @@ class NoteEdit extends Component {
         <SelectField
           value={this.state.newDb}
           floatingLabelText="Database"
-          onChange={this.onDbChange}
+          onChange={this.onDbChange.bind(this)}
         >
-          {this.state.dbs.map((db, idx) => {
+          {this.state.dbs ? this.state.dbs.map((db, idx) => {
             return (
               <MenuItem key={idx} value={db} primaryText={db.title} />
             );
-          })}
+          }) : ""}
         </SelectField>
         <TextField
           multiLine={true}
