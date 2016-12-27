@@ -3,30 +3,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import Snackbar from 'material-ui/Snackbar';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+
+import MnSnackbar from "./MnSnackbar";
+
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: false,
-      showMessage: false,
-      message: null
+      showMenu: false
     };
-  }
-
-  componentDidMount() {
-    this.context.pubsub.subscribe("info", this.showMessage.bind(this));
-  }
-
-  showMessage(topic, data) {
-    this.setState({
-      message: topic,
-      showMessage: true
-    });
   }
 
   render() {
@@ -46,13 +35,9 @@ class App extends Component {
           </Drawer>
           {this.props.children}
           <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
-            <ContentAdd />
+            <ContentAdd/>
           </FloatingActionButton>
-          <Snackbar
-            open={this.state.showMessage}
-            message={this.state.message}
-            autoHideDuration={4000}
-          />
+          <MnSnackbar/>
         </div>
       </MuiThemeProvider>
     );
