@@ -5,6 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import FlatButton from 'material-ui/FlatButton';
 
 import MnSnackbar from "./MnSnackbar";
 
@@ -28,7 +29,12 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div className="App">
-          <AppBar title="&gt; notes" onLeftIconButtonTouchTap={this.showMenu.bind(this)}/>
+          <AppBar
+            title="&gt; notes"
+            onLeftIconButtonTouchTap={this.showMenu.bind(this)}
+            iconElementRight={<FlatButton label="Sync" />}
+            onRightIconButtonTouchTap={this.syncAll.bind(this)}
+          />
           <Drawer open={this.state.showMenu}>
             <MenuItem onTouchTap={this.goToDatabases.bind(this)}>Databases</MenuItem>
             <MenuItem onTouchTap={this.goToNotes.bind(this)}>Notes</MenuItem>
@@ -64,6 +70,18 @@ class App extends Component {
   showMenu() {
     this.setState({
       showMenu: true
+    });
+  }
+
+  syncAll() {
+    this.context.repo.getAllDbs().then((dbs) => {
+      return Promise.all(dbs.map((db) => {
+        return this.context.repo.syncDb(db).then(() => {
+          this.context.pubsub("info.db.sync." + db._id, db);
+        }).catch((err) => {
+          this.context.pubsub("error.db.sync." + db._id, err);
+        });
+      }));
     });
   }
 }
