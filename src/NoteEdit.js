@@ -9,7 +9,12 @@ class NoteEdit extends Component {
     super(props);
     this.state = {
       noteId: this.props.params.noteId,
-      dbId: this.props.params.dbId
+      note: null,
+      newNote: null.
+      dbId: this.props.params.dbId,
+      db: null,
+      newDb: null,
+      dbs: null
     };
   }
 
