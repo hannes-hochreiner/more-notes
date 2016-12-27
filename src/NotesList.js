@@ -56,7 +56,7 @@ class NotesList extends Component {
       <div>
         <List>
           {this.state.notes.map((entry) => {
-            return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
+            return <Note key={entry.db._id + "_" + entry.note._id + "_" + entry.note._rev} note={entry}></Note>;
           })}
         </List>
         <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
