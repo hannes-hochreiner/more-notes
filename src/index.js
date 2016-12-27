@@ -8,7 +8,7 @@ import NotesList from './NotesList';
 import DbsList from './DbsList';
 import NoteEdit from './NoteEdit';
 import DbEdit from './DbEdit';
-import './index.css';
+import "./index.css";
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
