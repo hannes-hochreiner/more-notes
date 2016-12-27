@@ -77,9 +77,9 @@ class App extends Component {
     this.context.repo.getAllDbs().then((dbs) => {
       return Promise.all(dbs.map((db) => {
         return this.context.repo.syncDb(db).then(() => {
-          this.context.pubsub("info.db.sync." + db._id, db);
+          this.context.pubsub.publish("info.db.sync." + db._id, db);
         }).catch((err) => {
-          this.context.pubsub("error.db.sync." + db._id, err);
+          this.context.pubsub.publish("error.db.sync." + db._id, err);
         });
       }));
     });
