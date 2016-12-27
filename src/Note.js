@@ -61,7 +61,7 @@ class Note extends Component {
 
   deleteNote() {
     this.context.repo.deleteNoteFromDb(this.state.note.db, this.state.note.note).then(() => {
-      this.context.pubsub.publish("info.note.delete." + this.state.note.note._id, this.state.note.note);
+      this.context.pubsub.publish("info.note.delete." + this.state.note.note._id, this.state.note);
     });
   }
 }

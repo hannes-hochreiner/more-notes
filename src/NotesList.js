@@ -36,7 +36,7 @@ class NotesList extends Component {
   _onNoteDelete(topic, data) {
     this.setState({
       notes: this.state.notes.filter((elem) => {
-        return elem._id !== data._id;
+        return !(elem.db_id === data.db._id && elem.note._id === data.note._id);
       })
     });
   }
