@@ -14,7 +14,11 @@ class NoteEdit extends Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount");
+
     this.context.repo.getAllDbs().then((dbs) => {
+      console.log(dbs);
+
       let db = dbs.find((d) => {
         return d._id = this.state.dbId;
       });
@@ -23,11 +27,15 @@ class NoteEdit extends Component {
         db = dbs[0];
       }
 
+      console.log(db);
+
       this.setState({
         dbs: dbs,
         db: db,
         newDb: JSON.parse(JSON.stringify(db))
       });
+
+      console.log(this.state);
 
       if (!this.state.noteId) {
         return {};
@@ -72,10 +80,12 @@ class NoteEdit extends Component {
     );
   }
 
-  onDbChange(event, index, value) {
+  onDbChange(event) {
     this.setState({
-      newDb: value
+      newDb: event.target.value
     });
+    console.log("onDbChange");
+    console.log(this.state);
   }
 
   handleChange(event) {
@@ -86,6 +96,7 @@ class NoteEdit extends Component {
   }
 
   save() {
+    console.log(this.state);
     let newNote = this.state.newNote;
 
     if (this.state.db && this.state.db._id !== this.state.newDb._id) {
