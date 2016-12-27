@@ -86,6 +86,7 @@ class NoteEdit extends Component {
     });
     console.log("onDbChange");
     console.log(this.state);
+    console.log(event);
   }
 
   handleChange(event) {
