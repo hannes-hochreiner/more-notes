@@ -14,7 +14,13 @@ class DbsList extends Component {
   }
 
   componentDidMount() {
-    this.context.repo.getAllDbs().then((dbs) => {
+    this._updateDbList().then(() => {
+      this.context.pubsub.subscribe("info.db", this._updateDbList.bind(this));
+    });
+  }
+
+  _updateDbList() {
+    return this.context.repo.getAllDbs().then((dbs) => {
       this.setState({
         dbs: dbs
       });
@@ -49,6 +55,7 @@ class DbsList extends Component {
 
 DbsList.contextTypes = {
   router: React.PropTypes.object,
+  pubsub: React.PropTypes.object,
   repo: React.PropTypes.object
 };
 
