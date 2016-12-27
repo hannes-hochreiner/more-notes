@@ -80,13 +80,13 @@ class NoteEdit extends Component {
     );
   }
 
-  onDbChange(event) {
+  onDbChange(event, ..args) {
     this.setState({
       newDb: event.target.value
     });
     console.log("onDbChange");
     console.log(this.state);
-    console.log(event);
+    console.log(args);
   }
 
   handleChange(event) {
