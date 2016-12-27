@@ -59,7 +59,7 @@ class NoteEdit extends Component {
         <TextField
           multiLine={true}
           id="textfield"
-          value={this.state.note ? this.state.note.text : ""}
+          value={this.state.newNote ? this.state.newNote.text : ""}
           onChange={this.handleChange.bind(this)}
           fullWidth={true}
         />
