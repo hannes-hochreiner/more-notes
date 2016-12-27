@@ -28,6 +28,16 @@ class NotesList extends Component {
           return curr.concat(next);
         }, [])
       });
+    }).then(() => {
+      this.context.pubsub.subscribe("info.note.delete", this._onNoteDelete.bind(this));
+    });
+  }
+
+  _onNoteDelete(topic, data) {
+    this.setState({
+      notes: this.state.notes.filter((elem) => {
+        return elem._id !== data._id;
+      })
     });
   }
 
@@ -43,6 +53,7 @@ class NotesList extends Component {
 }
 
 NotesList.contextTypes = {
+  pubsub: React.PropTypes.object,
   repo: React.PropTypes.object
 };
 

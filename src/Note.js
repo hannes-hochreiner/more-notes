@@ -26,7 +26,7 @@ class Note extends Component {
     let rightIconMenu = (
       <IconMenu iconButtonElement={iconButtonElement}>
         <MenuItem onTouchTap={this.editNote.bind(this)}>Edit</MenuItem>
-        <MenuItem>Delete</MenuItem>
+        <MenuItem onTouchTap={this.deleteNote.bind(this)}>Delete</MenuItem>
       </IconMenu>
     );
 
@@ -58,10 +58,18 @@ class Note extends Component {
   editNote() {
     this.context.router.push("/dbs/" + this.state.note.db._id + "/notes/" + this.state.note.note._id);
   }
+
+  deleteNote() {
+    this.context.repo.deleteNoteFromDb(this.state.note.db, this.state.note.note).then(() => {
+      this.context.pubsub.publish("info.note.delete." + this.state.note.note._id, this.state.note.note);
+    });
+  }
 }
 
 Note.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
+  pubsub: React.PropTypes.object,
+  repo: React.PropTypes.object
 };
 
 

@@ -85,4 +85,10 @@ export class RepoPouchDb {
 
     return d.post(note);
   }
+
+  deleteNoteFromDb(db, note) {
+    let d = new this._pdb(db._id);
+
+    return d.remove(note);
+  }
 }
