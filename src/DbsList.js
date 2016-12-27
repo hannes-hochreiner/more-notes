@@ -21,7 +21,7 @@ class DbsList extends Component {
     });
   }
 
-  addNote() {
+  addDb() {
     this.context.router.push("dbnew");
   }
 
