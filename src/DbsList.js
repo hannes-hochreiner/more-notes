@@ -33,14 +33,16 @@ class DbsList extends Component {
     };
 
     return (
-      <List>
-        {this.state.dbs.map((entry) => {
-          return <Db key={entry._id} db={entry}></Db>;
-        })}
-      </List>
-      <FloatingActionButton style={fabStyle} onTouchTap={this.addDb.bind(this)}>
-        <ContentAdd/>
-      </FloatingActionButton>
+      <div>
+        <List>
+          {this.state.dbs.map((entry) => {
+            return <Db key={entry._id} db={entry}></Db>;
+          })}
+        </List>
+        <FloatingActionButton style={fabStyle} onTouchTap={this.addDb.bind(this)}>
+          <ContentAdd/>
+        </FloatingActionButton>
+      </div>
     );
   }
 }

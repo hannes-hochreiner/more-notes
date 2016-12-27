@@ -56,14 +56,16 @@ class NotesList extends Component {
     };
 
     return (
-      <List>
-        {this.state.notes.map((entry) => {
-          return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
-        })}
-      </List>
-      <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
-        <ContentAdd/>
-      </FloatingActionButton>
+      <div>
+        <List>
+          {this.state.notes.map((entry) => {
+            return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
+          })}
+        </List>
+        <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
+          <ContentAdd/>
+        </FloatingActionButton>
+      </div>
     );
   }
 }
