@@ -14,7 +14,14 @@ class NotesList extends Component {
   }
 
   componentDidMount() {
-    this.context.repo.getAllDbs().then((dbs) => {
+    this._updateNotes().then(() => {
+      this.context.pubsub.subscribe("info.note.delete", this._updateNotes.bind(this));
+      this.context.pubsub.subscribe("info.db.sync", this._updateNotes.bind(this));
+    });
+  }
+
+  _updateNotes() {
+    return this.context.repo.getAllDbs().then((dbs) => {
       return Promise.all(dbs.map((db) => {
         return this.context.repo.getAllNotesFromDb(db).then((notesFromDb) => {
           return notesFromDb.map((note) => {
@@ -31,16 +38,6 @@ class NotesList extends Component {
           return curr.concat(next);
         }, [])
       });
-    }).then(() => {
-      this.context.pubsub.subscribe("info.note.delete", this._onNoteDelete.bind(this));
-    });
-  }
-
-  _onNoteDelete(topic, data) {
-    this.setState({
-      notes: this.state.notes.filter((elem) => {
-        return !(elem.db._id === data.db._id && elem.note._id === data.note._id);
-      })
     });
   }
 
