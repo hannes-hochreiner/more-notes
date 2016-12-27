@@ -1,0 +1,11 @@
+{
+  "short_name": "more notes",
+  "name": "a note taking app",
+  "icons": [
+    {
+      "src": "icon.svg",
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone"
+}
