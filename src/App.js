@@ -60,7 +60,9 @@ class App extends Component {
 
   syncAll() {
     this.context.repo.getAllDbs().then((dbs) => {
-      return Promise.all(dbs.map((db) => {
+      return Promise.all(dbs.filer((db) => {
+        return db.syncAddr && db.syncAddr !== "";
+      }).map((db) => {
         return this.context.repo.syncDb(db).then(() => {
           this.context.pubsub.publish("info.db.sync." + db._id, db);
         }).catch((err) => {
