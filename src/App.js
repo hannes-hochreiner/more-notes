@@ -22,7 +22,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div className="App">
           <AppBar
-            title="&gt; notes"
+            title="more notes"
             onLeftIconButtonTouchTap={this.showMenu.bind(this)}
             iconElementRight={<FlatButton label="Sync" />}
             onRightIconButtonTouchTap={this.syncAll.bind(this)}
