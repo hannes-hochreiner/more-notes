@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {List} from 'material-ui/List';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 import Note from "./Note";
 
 class NotesList extends Component {
@@ -41,18 +44,32 @@ class NotesList extends Component {
     });
   }
 
+  addNote() {
+    this.context.router.push("dbs/more-notes-db-0/notenew");
+  }
+
   render() {
+    let fabStyle = {
+      position: "absolute",
+      bottom: 20,
+      right: 20
+    };
+
     return (
       <List>
         {this.state.notes.map((entry) => {
           return <Note key={entry.db._id + entry.note._id} note={entry}></Note>;
         })}
       </List>
+      <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
+        <ContentAdd/>
+      </FloatingActionButton>
     );
   }
 }
 
 NotesList.contextTypes = {
+  router: React.PropTypes.object,
   pubsub: React.PropTypes.object,
   repo: React.PropTypes.object
 };

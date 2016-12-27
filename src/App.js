@@ -3,8 +3,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
 
 import MnSnackbar from "./MnSnackbar";
@@ -20,12 +18,6 @@ class App extends Component {
   }
 
   render() {
-    let fabStyle = {
-      position: "absolute",
-      bottom: 20,
-      right: 20
-    };
-
     return (
       <MuiThemeProvider>
         <div className="App">
@@ -40,9 +32,6 @@ class App extends Component {
             <MenuItem onTouchTap={this.goToNotes.bind(this)}>Notes</MenuItem>
           </Drawer>
           {this.props.children}
-          <FloatingActionButton style={fabStyle} onTouchTap={this.addNote.bind(this)}>
-            <ContentAdd/>
-          </FloatingActionButton>
           <MnSnackbar/>
         </div>
       </MuiThemeProvider>
@@ -61,10 +50,6 @@ class App extends Component {
     this.setState({
       showMenu: false
     });
-  }
-
-  addNote() {
-    this.context.router.push("dbs/more-notes-db-0/notenew");
   }
 
   showMenu() {
