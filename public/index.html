@@ -10,6 +10,16 @@
     <meta name="theme-color" content="#00bcd4">
   </head>
   <body>
+    <script>
+      if("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("%PUBLIC_URL%/service-worker.js").then(function() {
+          console.log("service worker registered")
+        }).catch(function(e) {
+          console.log("service worker failed to register");
+          console.log(e);
+        });
+      }
+    </script>
     <div id="root"></div>
   </body>
 </html>

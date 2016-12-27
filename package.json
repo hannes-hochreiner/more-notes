@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.6.1"
+    "react-scripts": "0.6.1",
+    "sw-precache": "^4.2.3"
   },
   "homepage": "https://hannes-hochreiner.github.io/more-notes/",
   "dependencies": {
@@ -19,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && sw-precache --root=build",
     "test": "react-scripts test --env=jsdom",
     "gh-deploy": "npm run build && ./travis-ci_auto-publish.sh",
     "eject": "react-scripts eject"
