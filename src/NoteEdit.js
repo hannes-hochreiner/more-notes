@@ -32,7 +32,7 @@ class NoteEdit extends Component {
       this.setState({
         dbs: dbs,
         db: db,
-        newDb: JSON.parse(JSON.stringify(db))
+        newDb: db
       });
 
       console.log(this.state);

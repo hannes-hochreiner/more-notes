@@ -34,14 +34,14 @@ export class RepoPouchDb {
   updateDb(db) {
     if (typeof db._id !== "undefined") {
       return this._dbs.put(db);
+    } else {
+      return this._dbs.allDocs().then((res) => {
+        db._id = "more-notes-db-" + res.rows.length.toString();
+        db.type = "db";
+
+        return this._dbs.put(db);
+      });  
     }
-
-    return this._dbs.allDocs().then((res) => {
-      db._id = "more-notes-db-" + res.rows.length.toString();
-      db.type = "db";
-
-      return this._dbs.put(db);
-    });
   }
 
   syncDb(db) {
