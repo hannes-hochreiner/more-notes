@@ -3,9 +3,9 @@
   "name": "a note taking app",
   "icons": [
     {
-      "src": "%PUBLIC_URL%/icon.svg",
+      "src": "./icon.svg",
     }
   ],
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone"
 }
