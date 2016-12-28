@@ -3,9 +3,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
 
 import MnSnackbar from "./MnSnackbar";
+import MnSynchronizer from "./MnSynchronizer";
 
 import './App.css';
 
@@ -13,8 +13,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showMenu: false
+      showMenu: false,
+      dbs: []
     };
+  }
+
+  componentDidMount() {
+    this.context.repo.getAllDbs().then((dbs) => {
+      this.setState({
+        dbs: dbs
+      });
+    });
   }
 
   render() {
@@ -24,8 +33,7 @@ class App extends Component {
           <AppBar
             title="more notes"
             onLeftIconButtonTouchTap={this.showMenu.bind(this)}
-            iconElementRight={<FlatButton label="Sync" />}
-            onRightIconButtonTouchTap={this.syncAll.bind(this)}
+            iconElementRight={<MnSynchronizer dbs={this.state.dbs} />}
           />
           <Drawer open={this.state.showMenu}>
             <MenuItem onTouchTap={this.goToDatabases.bind(this)}>Databases</MenuItem>
