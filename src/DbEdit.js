@@ -5,8 +5,9 @@ import FlatButton from 'material-ui/FlatButton';
 class DbEdit extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      dbId: this.props.params.dbId,
+      dbId: this.props.params ? this.props.params.dbId : this.props.dbId,
       db: null
     };
   }
@@ -32,14 +33,23 @@ class DbEdit extends Component {
       <div>
         <TextField
           id="titleField"
+          floatingLabelText="Title"
           value={this.state.db ? this.state.db.title : ""}
           onChange={this.handleChange.bind(this, "title")}
           fullWidth={true}
         />
         <TextField
           id="syncAddrField"
+          floatingLabelText="Synchronization Address"
           value={this.state.db ? this.state.db.syncAddr : ""}
           onChange={this.handleChange.bind(this, "syncAddr")}
+          fullWidth={true}
+        />
+        <TextField
+          id="authAddrField"
+          floatingLabelText="Authorization Address"
+          value={this.state.db ? this.state.db.authAddr : ""}
+          onChange={this.handleChange.bind(this, "authAddr")}
           fullWidth={true}
         />
         <FlatButton
