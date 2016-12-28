@@ -69,20 +69,23 @@ class MnSynchronizer extends Component {
       console.log(dbs);
       if (dbs[0].syncAddr && dbs[0].authAddr) {
         console.log("sync");
-        // return this.context.repo.syncDb(dbs[0]).catch(() => {
-        //   console.log("first try failed");
+        return this.context.repo.syncDb(dbs[0]).catch(() => {
+          console.log("first try failed");
           return this._authProm().then((authData) => {
             console.log(authData);
             let authXhr = new XhrPromise(dbs[0].authAddr);
 
-            authXhr.data = authData;
+            authXhr.data = {
+              name: authData.user,
+              password: authData.password
+            };
 
             return authXhr.post().then(() => {
               console.log("trying to sync again");
               return this.context.repo.syncDb(dbs[0]);
             });
           });
-        // });
+        });
       } else {
         console.log("not synching");
       }
