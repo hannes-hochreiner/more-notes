@@ -32,7 +32,7 @@ class Db extends Component {
     return (
       <ListItem
         primaryText={this.state.db.title}
-        secondaryText={this.state.db.syncAddr + "<br/>" + this.state.db.authAddr}
+        secondaryText={"sync: " + this.state.db.syncAddr + " - auth: " + this.state.db.authAddr}
         secondaryTextLines={2}
         rightIconButton={rightIconMenu}
       />
