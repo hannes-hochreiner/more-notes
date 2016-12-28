@@ -11,7 +11,6 @@ export default class XhrPromise {
     return new Promise((resolve, reject) => {
       let req = new XMLHttpRequest();
 
-      req.addEventListener("onreadystatechange", reqListener);
       req.addEventListener("load", () => { resolve(); });
       req.addEventListener("error", () => { reject("error"); });
       req.addEventListener("abort", () => { reject("abort"); });
@@ -30,7 +29,6 @@ export default class XhrPromise {
     return new Promise((resolve, reject) => {
       let req = new XMLHttpRequest();
 
-      req.addEventListener("onreadystatechange", reqListener);
       req.addEventListener("load", () => { resolve(); });
       req.addEventListener("error", () => { reject("error"); });
       req.addEventListener("abort", () => { reject("abort"); });
