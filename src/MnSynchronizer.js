@@ -69,8 +69,8 @@ class MnSynchronizer extends Component {
       console.log(dbs);
       if (dbs[0].syncAddr && dbs[0].authAddr) {
         console.log("sync");
-        return this.context.repo.syncDb(dbs[0]).catch(() => {
-          console.log("first try failed");
+        // return this.context.repo.syncDb(dbs[0]).catch(() => {
+        //   console.log("first try failed");
           return _authProm().then((authData) => {
             console.log(authData);
             let authXhr = new XhrPromise(dbs[0].authAddr);
@@ -82,7 +82,7 @@ class MnSynchronizer extends Component {
               return this.context.repo.syncDb(dbs[0]);
             });
           });
-        });
+        // });
       } else {
         console.log("not synching");
       }
@@ -94,6 +94,7 @@ class MnSynchronizer extends Component {
   }
 
   _authProm() {
+    console.log("showing auth");
     return new Promise((resolve, reject) => {
       this._resolve = resolve;
       this._reject = reject;
