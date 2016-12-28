@@ -71,7 +71,7 @@ class MnSynchronizer extends Component {
         console.log("sync");
         // return this.context.repo.syncDb(dbs[0]).catch(() => {
         //   console.log("first try failed");
-          return _authProm().then((authData) => {
+          return this._authProm().then((authData) => {
             console.log(authData);
             let authXhr = new XhrPromise(dbs[0].authAddr);
 
