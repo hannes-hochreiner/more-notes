@@ -66,9 +66,11 @@ class MnSynchronizer extends Component {
     this.context.pubsub.publish("info.debug.sync.start");
 
     this.context.repo.getAllDbs().then((dbs) => {
+      console.log(dbs);
       if (dbs[0].syncAddr && dbs[0].authAddr) {
         let xhr = new XhrPromise(dbs[0].authAddr);
-        return xhr.get().catch(() => {
+        return xhr.get().catch((err) => {
+          console.log("error first request: " + err);
           return _authProm().then((authData) => {
             let authXhr = new XhrPromise(dbs[0].authAddr);
 
