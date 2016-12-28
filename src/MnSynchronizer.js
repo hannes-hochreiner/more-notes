@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import XhrPromise from "./XhrPromise";
 
 class MnSynchronizer extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class MnSynchronizer extends Component {
           modal={true}
           open={this.state.showAuthentication}
           onRequestClose={this.handleCancel.bind(this)}
+          autoScrollBodyContent={true}
         >
           <TextField
             floatingLabelText="User"
@@ -61,9 +63,37 @@ class MnSynchronizer extends Component {
   }
 
   sync() {
-    this.context.pubsub.publish("info.debug.sync");
-    this.setState({
-      showAuthentication: true
+    this.context.pubsub.publish("info.debug.sync.start");
+
+    this.context.repo.getAllDbs().then((dbs) => {
+      if (dbs[0].syncAddr && dbs[0].authAddr) {
+        let xhr = new Xhr(dbs[0].authAddr);
+        return xhr.get().catch(() => {
+          return _authProm().then((authData) => {
+            let authXhr = new Xhr(dbs[0].authAddr);
+
+            authXhr.data = authData;
+
+            return authXhr.post();
+          });
+        }).then(() => {
+          return this.context.repo.syncDb(dbs[0]);
+        }).then(() => {
+          this.context.pubsub.publish("info.debug.sync.end");
+        }).catch(() => {
+          this.context.pubsub.publish("error.debug.sync");
+        });
+      }
+    });
+  }
+
+  _authProm() {
+    return new Promise((resolve, reject) => {
+      this._resolve = resolve;
+      this._reject = reject;
+      this.setState({
+        showAuthentication: true
+      });
     });
   }
 
@@ -72,13 +102,25 @@ class MnSynchronizer extends Component {
     this.setState({
       showAuthentication: false
     });
+    let reject = this._reject;
+    delete this._reject;
+    reject();
   }
 
   handleOk() {
     this.context.pubsub.publish("info.debug.ok");
+    let resolve = this._resolve;
+    delete this._resolve;
+    let res = {
+      user: this.state.user,
+      password: this.state.password
+    };
     this.setState({
+      user: null,
+      password: null,
       showAuthentication: false
     });
+    resolve(res);
   }
 
   handleUserChange(event) {
@@ -95,7 +137,8 @@ class MnSynchronizer extends Component {
 }
 
 MnSynchronizer.contextTypes = {
-  pubsub: React.PropTypes.object
+  pubsub: React.PropTypes.object,
+  repo: React.PropTypes.object
 };
 
 export default MnSynchronizer;

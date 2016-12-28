@@ -15,6 +15,7 @@ class MnSnackbar extends Component {
 
   componentDidMount() {
     this.context.pubsub.subscribe("info", this.queueMessage.bind(this));
+    this.context.pubsub.subscribe("error", this.queueMessage.bind(this));
   }
 
   queueMessage(topic, data) {
