@@ -23,7 +23,7 @@ export default class XhrPromise {
       if (this._data) {
         req.send(JSON.stringify(this._data));
       } else {
-        req.send(;
+        req.send();
       }
     });
   }
