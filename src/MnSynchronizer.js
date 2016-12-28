@@ -71,13 +71,14 @@ class MnSynchronizer extends Component {
         console.log("sync");
         return this.context.repo.syncDb(dbs[0]).catch(() => {
           console.log("first try failed");
-          return _authProm().then((authData) {
+          return _authProm().then((authData) => {
             console.log(authData);
             let authXhr = new XhrPromise(dbs[0].authAddr);
 
             authXhr.data = authData;
 
             return authXhr.post().then(() => {
+              console.log("trying to sync again");
               return this.context.repo.syncDb(dbs[0]);
             });
           });
