@@ -85,7 +85,7 @@ class MnSynchronizer extends Component {
   }
 
   _syncDb(db) {
-    if (!(db.authAddr && db.authAddr !== "") {
+    if (!(db.authAddr && db.authAddr !== "")) {
       return this.context.repo.syncDb(db);
     }
 
