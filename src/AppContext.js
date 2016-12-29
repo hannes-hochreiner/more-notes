@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { default as PouchDb } from "pouchdb";
 import { default as PubSub } from "pubsub-js";
 import { RepoPouchDb } from "./RepoPouchDb";
-// import { RepoMock } from "./RepoMock";
 
 class AppContext extends Component {
   constructor(props) {
     super(props);
 
-    // let repo = new RepoMock();
     let repo = new RepoPouchDb(PouchDb);
 
     this.state = {
