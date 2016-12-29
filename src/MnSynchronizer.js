@@ -39,7 +39,7 @@ class MnSynchronizer extends Component {
       <div>
         <FlatButton label="Sync" onTouchTap={this.sync.bind(this)}/>
         <Dialog
-          title="Authenticate"
+          title={this.state.dbTitle}
           actions={actions}
           modal={true}
           open={this.state.showAuthentication}
@@ -66,43 +66,54 @@ class MnSynchronizer extends Component {
     this.context.pubsub.publish("info.debug.sync.start");
 
     this.context.repo.getAllDbs().then((dbs) => {
-      console.log(dbs);
-      if (dbs[0].syncAddr && dbs[0].authAddr) {
-        console.log("sync");
-        return this.context.repo.syncDb(dbs[0]).catch(() => {
-          console.log("first try failed");
-          return this._authProm().then((authData) => {
-            console.log(authData);
-            let authXhr = new XhrPromise(dbs[0].authAddr);
-
-            authXhr.data = {
-              name: authData.user,
-              password: authData.password
-            };
-
-            return authXhr.post().then(() => {
-              console.log("trying to sync again");
-              return this.context.repo.syncDb(dbs[0]);
-            });
-          });
-        });
-      } else {
-        console.log("not synching");
-      }
+      return dbs.filter((db) => {
+        return db.syncAddr && db.syncAddr !== "";
+      }).reduce((currProm, nextDb) => {
+        if (!currProm) {
+          return this._syncDb(nextDb);
+        } else {
+          return currProm.then(() => this._syncDb(nextDb));
+        }
+      });
     }).then(() => {
       this.context.pubsub.publish("info.debug.sync.end");
     }).catch(() => {
       this.context.pubsub.publish("error.debug.sync");
+    }).then(() => {
+      this.context.pubsub.publish("info.db.sync");
     });
   }
 
-  _authProm() {
-    console.log("showing auth");
+  _syncDb(db) {
+    if (!(db.authAddr && db.authAddr !== "") {
+      return this.context.repo.syncDb(db);
+    }
+
+    return this.context.repo.syncDb(db).catch(() => {
+      console.log("first try failed");
+      return this._authProm(db.title).then((authData) => {
+        let authXhr = new XhrPromise(dbs[0].authAddr);
+
+        authXhr.data = {
+          name: authData.user,
+          password: authData.password
+        };
+
+        return authXhr.post().then(() => {
+          console.log("trying to sync again");
+          return this.context.repo.syncDb(dbs[0]);
+        });
+      });
+    });
+  }
+
+  _authProm(dbTitle) {
     return new Promise((resolve, reject) => {
       this._resolve = resolve;
       this._reject = reject;
       this.setState({
-        showAuthentication: true
+        showAuthentication: true,
+        dbTitle: dbTitle
       });
     });
   }
