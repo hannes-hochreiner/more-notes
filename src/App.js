@@ -5,7 +5,9 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
 import MnSnackbar from "./MnSnackbar";
-import MnSynchronizer from "./MnSynchronizer";
+
+import Xhr from "./Xhr";
+import Synchronizer from "./Synchronizer";
 
 import './App.css';
 
@@ -19,6 +21,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this._xhr = new Xhr(XMLHTTPRequest, this.context.pubsub);
+    this._sync = new Synchronizer(this.context.repo, this.context.pubsub, this.context.uuid);
     this.context.repo.getAllDbs().then((dbs) => {
       this.setState({
         dbs: dbs
@@ -33,7 +37,6 @@ class App extends Component {
           <AppBar
             title="more notes"
             onLeftIconButtonTouchTap={this.showMenu.bind(this)}
-            iconElementRight={<MnSynchronizer dbs={this.state.dbs} />}
           />
           <Drawer open={this.state.showMenu}>
             <MenuItem onTouchTap={this.goToDatabases.bind(this)}>Databases</MenuItem>
@@ -84,7 +87,8 @@ class App extends Component {
 App.contextTypes = {
   router: React.PropTypes.object,
   pubsub: React.PropTypes.object,
-  repo: React.PropTypes.object
+  repo: React.PropTypes.object,
+  uuid: React.PropTypes.func
 };
 
 export default App;
