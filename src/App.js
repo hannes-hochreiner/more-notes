@@ -9,6 +9,7 @@ import MnSnackbar from "./MnSnackbar";
 
 import Xhr from "./Xhr";
 import Synchronizer from "./Synchronizer";
+import ConsoleLogger from "./ConsoleLogger";
 
 import './App.css';
 
@@ -23,6 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this._xhr = new Xhr(XMLHttpRequest, this.context.pubsub);
+    this._logger = new ConsoleLogger(this.context.pubsub);
     this._sync = new Synchronizer(this.context.repo, this.context.pubsub, this.context.uuid);
     this.context.repo.getAllDbs().then((dbs) => {
       this.setState({
