@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 
 import MnSnackbar from "./MnSnackbar";
 
@@ -37,6 +38,8 @@ class App extends Component {
           <AppBar
             title="more notes"
             onLeftIconButtonTouchTap={this.showMenu.bind(this)}
+            iconElementRight={<FlatButton label="Sync" />}
+            onRightIconButtonTouchTap={this.syncAll.bind(this)}
           />
           <Drawer open={this.state.showMenu}>
             <MenuItem onTouchTap={this.goToDatabases.bind(this)}>Databases</MenuItem>
@@ -71,15 +74,12 @@ class App extends Component {
 
   syncAll() {
     this.context.repo.getAllDbs().then((dbs) => {
-      return Promise.all(dbs.filter((db) => {
-        return db.syncAddr && db.syncAddr !== "";
-      }).map((db) => {
-        return this.context.repo.syncDb(db).then(() => {
-          this.context.pubsub.publish("info.db.sync." + db._id, db);
-        }).catch((err) => {
-          this.context.pubsub.publish("error.db.sync." + db._id, err);
+      dbs.map((db) => {
+        this.context.pubsub.publish("action.syncDb", {
+          id: this.uuid(),
+          db: db
         });
-      }));
+      });
     });
   }
 }
