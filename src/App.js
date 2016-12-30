@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this._xhr = new Xhr(XMLHTTPRequest, this.context.pubsub);
+    this._xhr = new Xhr(XMLHttpRequest, this.context.pubsub);
     this._sync = new Synchronizer(this.context.repo, this.context.pubsub, this.context.uuid);
     this.context.repo.getAllDbs().then((dbs) => {
       this.setState({

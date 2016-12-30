@@ -45,7 +45,7 @@ class MnSnackbar extends Component {
     return (
       <Snackbar
         open={this.state.showMessage}
-        message={this.state.message}
+        message={this.state.message || ""}
       />
     );
   }

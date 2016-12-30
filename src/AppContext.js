@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { default as PouchDb } from "pouchdb";
 import { default as PubSub } from "pubsub-js";
 import { RepoPouchDb } from "./RepoPouchDb";
+import { v4 as uuid } from "uuid";
 
 class AppContext extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class AppContext extends Component {
   getChildContext() {
     return {
       repo: this.state.repo,
-      pubsub: PubSub
+      pubsub: PubSub,
+      uuid: uuid
     };
   }
 
@@ -39,6 +41,7 @@ class AppContext extends Component {
 
 AppContext.childContextTypes = {
   repo: React.PropTypes.object,
+  uuid: React.PropTypes.func,
   pubsub: React.PropTypes.object
 };
 

@@ -16,6 +16,12 @@ Get username and password.
   * id: unique id
   * title: title to be displayed
 
+### action.syncDb
+Synchronize database.
+
+  * id: unique id
+  * db: database object
+
 ## Events
 
 ### event.requestCompleted.<id>
@@ -29,5 +35,11 @@ Action "sendRequest" with the specified id has been completed.
 Action "getCredentials" with the specified id has been completed.
 
   * id: id of the getCredentials action
-  * data: {username, password}, if request was successful
+  * data: {user, password}, if request was successful
+  * error: if request was unsuccessful
+
+### event.dbSyncCompleted.<id>
+Action "syncDb" with the specified id has been completed.
+
+  * id: id of the syncDb action
   * error: if request was unsuccessful
