@@ -78,7 +78,7 @@ class App extends Component {
     this.context.repo.getAllDbs().then((dbs) => {
       dbs.map((db) => {
         this.context.pubsub.publish("action.syncDb", {
-          id: this.uuid(),
+          id: this.context.uuid(),
           db: db
         });
       });
