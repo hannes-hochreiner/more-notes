@@ -9,6 +9,7 @@ import MnSnackbar from "./MnSnackbar";
 
 import Xhr from "./Xhr";
 import Synchronizer from "./Synchronizer";
+import Credentials from "./Credentials";
 import ConsoleLogger from "./ConsoleLogger";
 
 import './App.css';
@@ -49,6 +50,7 @@ class App extends Component {
           </Drawer>
           {this.props.children}
           <MnSnackbar/>
+          <Credentials/>
         </div>
       </MuiThemeProvider>
     );
