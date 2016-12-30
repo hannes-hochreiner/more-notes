@@ -7,13 +7,13 @@ export default class Synchronizer {
   }
 
   _sync(msg, data) {
-    let prom = this._repo.syncDb(data.db)
+    let prom = this._repo.syncDb(data.db);
 
     if (data.db.authAddr) {
       prom = prom.catch(() => {
         return this._getCredentials(data.db.title)
-          .then((cred) => this._sendAuthRequest(cred, data.db.authAddr))
-          .then(this._repo.syncDb(data.db));
+          .then((cred) => { return this._sendAuthRequest(cred, data.db.authAddr); })
+          .then(() => { return this._repo.syncDb(data.db); });
       });
     }
 

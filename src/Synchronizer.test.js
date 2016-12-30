@@ -28,6 +28,7 @@ describe("Synchronizer", () => {
     return new Promise((rs, rj) => {
       psMock.publish.mockImplementationOnce(() => { rs(); });
     }).then(() => {
+      expect(repoMock.syncDb.mock.calls.length).toBe(1);
       expect(repoMock.syncDb.mock.calls[0]).toEqual([db]);
       expect(psMock.publish.mock.calls.length).toBe(1);
       expect(psMock.publish.mock.calls[0]).toEqual([
@@ -64,6 +65,7 @@ describe("Synchronizer", () => {
     return new Promise((rs, rj) => {
       psMock.publish.mockImplementationOnce(() => { rs(); });
     }).then(() => {
+      expect(repoMock.syncDb.mock.calls.length).toEqual(1);
       expect(repoMock.syncDb.mock.calls[0]).toEqual([db]);
       expect(psMock.publish.mock.calls.length).toBe(1);
       expect(psMock.publish.mock.calls[0]).toEqual([
