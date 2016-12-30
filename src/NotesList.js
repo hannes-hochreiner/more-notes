@@ -16,7 +16,7 @@ class NotesList extends Component {
   componentDidMount() {
     this._updateNotes().then(() => {
       this.context.pubsub.subscribe("info.note.delete", this._updateNotes.bind(this));
-      this.context.pubsub.subscribe("info.db.sync", this._updateNotes.bind(this));
+      this.context.pubsub.subscribe("event.dbSyncCompleted", this._updateNotes.bind(this));
     });
   }
 
